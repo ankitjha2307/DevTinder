@@ -2,20 +2,27 @@ const express = require("express");
 
 const app = express();
 
-app.use("/hello", (req, res) => {
-  res.send("Hello Hello Hello");
-});
+app.use(
+  "/user",
+  (req, res, next) => {
+    // res.send("Rout Handler 1");
+    next();
+  },
+  (req, res, next) => {
+    // res.send("Rout Handler 2");
+    next();
+  },
+  (req, res, next) => {
+    // res.send("Rout Handler 3");
+    next();
+  },
+  (req, res, next) => {
+    res.send("Rout Handler 4");
+  }
+);
 
-app.use("/test", (req, res) => {
-  res.send("testing the server");
-});
-
-app.use((req, res) => {
-  res.send("Hello from the server! yes");
-});
-
-app.listen(3000, () => {
-  console.log("server is succefully listing on 3000....");
+app.listen(7777, () => {
+  console.log("7777 is Listning");
 });
 
 // Ankit jha
