@@ -2,16 +2,15 @@ const express = require("express");
 
 const app = express();
 
-const { adminAuth } = require("./Middleware/auth");
-
-app.use("/admin", adminAuth);
-
-app.get("/user", (req, res) => {
+app.get("/getUserData", (req, res) => {
+  throw new Error("sdbncwlhb");
   res.send("User Data Sent");
 });
 
-app.get("/admin/getAllData", (req, res) => {
-  res.send("All Data Sent");
+app.use("/", (err, req, res, next) => {
+  if (err) {
+    res.status(500).send("Something Went Wrong");
+  }
 });
 
 app.listen(7777, () => {
