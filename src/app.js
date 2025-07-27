@@ -1,16 +1,29 @@
 const express = require("express");
 const connectDB = require("./config/database");
+const User = require("./model/user");
 
 const app = express();
 
-connectDB()
-  .then(() => {
-    console.log("DB connect Sucess");
-  })
-  .catch((err) => {
-    console.error("DB connection Failed");
+app.post("/signup", async (req, res) => {
+  const user = new User({
+    firstName: "gaurav",
+    lastName: "Jha",
+    emailID: "ankitjha723@gmail.com",
+    password: "AnkitJhaisverunice",
   });
 
-app.listen(7777, () => {
-  console.log("7777 is Listning");
+  await user.save();
+
+  res.send("User Added Succesfully");
 });
+
+connectDB()
+  .then(() => {
+    console.log("Database Connect Succesfully");
+    app.listen(7777, () => {
+      console.log("7777 is Listning");
+    });
+  })
+  .catch((err) => {
+    console.error("Database connection Failed");
+  });
