@@ -14,6 +14,27 @@ app.post("/signup", async (req, res) => {
   res.send("User Added Succesfully");
 });
 
+app.get("/user", async (req, res) => {
+  const userEmail = req.body.emailID;
+
+  try {
+    const users = await User.find({ emailID: userEmail });
+
+    res.send(users);
+  } catch (err) {
+    res.status(400).send("user email's not found");
+  }
+});
+
+app.get("/feed", async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.send(users);
+  } catch (err) {
+    res.status(400).send("user email's not found");
+  }
+});
+
 connectDB()
   .then(() => {
     console.log("Database Connect Succesfully");
