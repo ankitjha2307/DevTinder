@@ -9,16 +9,20 @@ app.use(express.json());
 app.post("/signup", async (req, res) => {
   const user = new User(req.body);
 
-  await user.save();
+  try {
+    await user.save();
 
-  res.send("User Added Succesfully");
+    res.send("User Added Succesfully");
+  } catch {
+    res.status(400).send("Something Went wrong");
+  }
 });
 
 app.get("/user", async (req, res) => {
-  const userEmail = req.body.emailID;
+  const userEmail = req.body.emailId;
 
   try {
-    const users = await User.find({ emailID: userEmail });
+    const users = await User.find({ emailId: userEmail });
 
     res.send(users);
   } catch (err) {
