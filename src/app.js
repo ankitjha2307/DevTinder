@@ -13,7 +13,8 @@ app.post("/signup", async (req, res) => {
     await user.save();
 
     res.send("User Added Succesfully");
-  } catch {
+  } catch (err) {
+    console.error(err);
     res.status(400).send("Something Went wrong");
   }
 });
@@ -46,6 +47,22 @@ app.delete("/delete", async (req, res) => {
     res.send("User deleted");
   } catch (err) {
     res.status(400).send("something went wrong");
+  }
+});
+
+app.patch("/signup", async (req, res) => {
+  const userId = req.body.userId;
+  const data = req.body;
+
+  try {
+    const user = await User.findByIdAndUpdate({ _id: userId }, data, {
+      returnDocument: "after",
+      runValidators: true,
+    });
+
+    res.send("User Updates Succesfully");
+  } catch (err) {
+    res.status(400).send("Update Faildef" + err.message);
   }
 });
 
