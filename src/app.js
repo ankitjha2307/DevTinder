@@ -5,6 +5,7 @@ const { validateSignUpData } = require("./utils/validation");
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
+const { userAuth } = require("./Middleware/auth");
 
 const app = express();
 
@@ -64,78 +65,13 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/profile", async (req, res) => {
+app.get("/profile", userAuth, async (req, res) => {
   try {
-    const cookies = req.cookies;
-
-    const { token } = cookies;
-
-    if (!token) {
-      throw new Error("Invalid Token");
-    }
-
-    const isTokenValid = await jwt.verify(token, "DEV@TINDER");
-
-    const { _id } = isTokenValid;
-
-    console.log("Logged in user is " + _id);
-
-    const user = await User.findById(_id);
-
-    if (!user) {
-      throw new Error("User is not found ");
-    }
+    const user = req.user;
 
     res.send(user);
   } catch (err) {
     res.status(400).send("ERROR " + err.message);
-  }
-});
-
-app.get("/user", async (req, res) => {
-  const userEmail = req.body.emailId;
-
-  try {
-    const users = await User.find({ emailId: userEmail });
-
-    res.send(users);
-  } catch (err) {
-    res.status(400).send("user email's not found");
-  }
-});
-
-app.get("/feed", async (req, res) => {
-  try {
-    const users = await User.find({});
-    res.send(users);
-  } catch (err) {
-    res.status(400).send("user email's not found");
-  }
-});
-
-app.delete("/delete", async (req, res) => {
-  const userId = req.body.userId;
-  try {
-    const user = await User.findByIdAndDelete(userId);
-    res.send("User deleted");
-  } catch (err) {
-    res.status(400).send("something went wrong");
-  }
-});
-
-app.patch("/signup", async (req, res) => {
-  const userId = req.body.userId;
-  const data = req.body;
-
-  try {
-    const user = await User.findByIdAndUpdate({ _id: userId }, data, {
-      returnDocument: "after",
-      runValidators: true,
-    });
-
-    res.send("User Updates Succesfully");
-  } catch (err) {
-    res.status(400).send("Update Faildef" + err.message);
   }
 });
 
