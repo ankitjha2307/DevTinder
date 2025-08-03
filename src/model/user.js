@@ -40,12 +40,12 @@ const userSchema = new mongoose.Schema(
     photoUrl: {
       type: String,
       default:
-        "https://w7.pngwing.com/pngs/910/606/png-transparent-head-the-dummy-avatar-man-tie-jacket-user-thumbnail.png",
+        "https://img.freepik.com/premium-vector/high-school-boy-with-glasses-suit_684058-940.jpg",
     },
 
     about: {
       type: String,
-      default: "This is Default ABout of user",
+      default: "This is Default About of User",
     },
     skills: {
       type: [String],

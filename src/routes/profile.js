@@ -25,10 +25,42 @@ profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
 
     await loggedInUser.save();
 
-    res.send("Secussefully Edit profile");
+    res.json({
+      message: `${loggedInUser.firstName}, your profile updated successfully`,
+      data: loggedInUser,
+    });
   } catch (err) {
     res.status(400).send("Error" + err.message);
   }
 });
+
+// profileRouter.put("/profile/edit", userAuth, async (req, res) => {
+//   try {
+//     console.log("Edit profile body:", req.body);
+
+//     const validationResult = validateEditProfile(req.body);
+//     if (!validationResult.isValid) {
+//       return res.status(400).json({ message: validationResult.message });
+//     }
+
+//     const loggedInUser = req.user;
+
+//     Object.keys(req.body).forEach((key) => {
+//       if (key !== "_id" && key !== "email" && key !== "password") {
+//         loggedInUser[key] = req.body[key];
+//       }
+//     });
+
+//     await loggedInUser.save();
+
+//     res.json({
+//       message: `${loggedInUser.firstName}, your profile updated successfully`,
+//       data: loggedInUser,
+//     });
+//   } catch (err) {
+//     console.error("Edit Profile Error:", err);
+//     res.status(400).json({ message: err.message || "Something went wrong." });
+//   }
+// });
 
 module.exports = profileRouter;
