@@ -3,16 +3,16 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/database");
 const app = express();
 const cookieParser = require("cookie-parser");
-const cors = require("cors");
+// const cors = require("cors");
 dotenv.config();
 
 const mongodburi = process.env.MONGODBURI || "default";
 console.log(mongodburi);
 
-const corsOptions = {
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-};
+// const corsOptions = {
+//   credentials: true,
+//   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+// };
 
 // 🛡️ Middleware setup
 app.use(cors(corsOptions));
