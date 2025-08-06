@@ -10,7 +10,7 @@ const mongodburi = process.env.MONGODBURI || "default";
 console.log(mongodburi);
 
 const corsOptions = {
-  origin: "http://localhost:5173/",
+  origin: "https://dev-tinder-web-sage.vercel.app/",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
