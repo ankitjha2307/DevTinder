@@ -24,9 +24,9 @@ const validateEditProfile = (req) => {
     "skills",
   ];
 
-  const isEditAllowed = Object.keys(req.body).every((field) =>
-    allowedEditFields.includes(field)
-  );
+  const isEditAllowed = req.body.emailId ? true : false;
+  console.log(req.body);
+  console.log(isEditAllowed);
 
   return isEditAllowed;
 };
