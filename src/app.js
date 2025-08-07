@@ -10,14 +10,13 @@ const mongodburi = process.env.MONGODBURI || "default";
 console.log(mongodburi);
 
 const corsOptions = {
-  // origin: "https://dev-tinder-web-sage.vercel.app",
+  origin: "https://dev-tinder-web-sage.vercel.app", // ✅ No trailing slash
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
 };
 
-// 🛡️ Middleware setup
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+app.options(/.*/, cors(corsOptions)); // Handles preflight
 app.use(express.json());
 app.use(cookieParser());
 
